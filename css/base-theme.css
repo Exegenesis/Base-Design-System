@@ -208,6 +208,70 @@
   50%     { transform: translateY(-10px); }
 }
 
+/* Respect user motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .cyber-lock-container,
+  .cyber-lock-image,
+  .stat-card,
+  .btn,
+  .btn--primary,
+  .btn-primary,
+  .btn-secondary {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Micro-animations & transitions */
+.cyber-lock-container {
+  transition: transform 420ms cubic-bezier(.2,.9,.2,1), box-shadow 420ms ease;
+}
+.cyber-lock-image {
+  transition: transform 420ms cubic-bezier(.2,.9,.2,1), filter 420ms ease;
+}
+.cyber-lock-container:hover .cyber-lock-image,
+.cyber-lock-container:focus-within .cyber-lock-image {
+  transform: translateY(-6px) scale(1.01);
+  filter: drop-shadow(0 14px 42px rgba(var(--cyber-cyan),0.5));
+}
+
+.stat-card {
+  will-change: transform, box-shadow;
+}
+
+.btn, .btn--primary, .btn-primary, .btn-secondary {
+  transition: transform 180ms cubic-bezier(.2,.9,.2,1), box-shadow 180ms ease, background-color 180ms ease;
+}
+.btn:hover, .btn--primary:hover, .btn-primary:hover, .btn-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+
+/* Accessible focus states: use focus-visible to avoid accidental outlines on mouse click */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(var(--cyber-cyan-600),0.18);
+  outline-offset: 3px;
+}
+
+.btn:focus-visible, .btn--primary:focus-visible, .btn-primary:focus-visible, .btn-secondary:focus-visible {
+  box-shadow: 0 8px 20px rgba(var(--cyber-cyan),0.12);
+  transform: translateY(-2px);
+}
+
+/* Make stat-cards keyboard-focusable visually (add tabindex in templates for full a11y) */
+.stat-card:focus-visible {
+  outline: 3px solid rgba(var(--cyber-cyan-600),0.12);
+  box-shadow: 0 20px 48px rgba(var(--cyber-cyan),0.10);
+  transform: translateY(-8px) scale(1.01);
+}
+
+/* Slightly reduce motion after hover to avoid excessive movement */
+.stat-card:hover { transition-duration: 220ms; }
+
 /* Hero stats — mimic sizing and typography from the portfolio site */
 .hero-stats {
   display: grid;
