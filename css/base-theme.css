@@ -21,6 +21,9 @@
   --card: 245 245 245;
   --accent: 56 143 255;
   --accent-600: 0 102 204;
+  /* Add cyan accent used in portfolio visuals */
+  --cyber-cyan: 6 182 212; /* rgb(6,182,212) */
+  --cyber-cyan-600: 8 145 178;
   --success: 46 204 113;
   --danger: 231 76 60;
   --glass: 255 255 255; /* subtle glass color */
@@ -177,22 +180,22 @@
 }
 
 .cyber-lock-container {
-  width: 400px;
-  height: 400px;
+  width: 420px;
+  height: 420px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(var(--cyber-cyan),0.06) 0%, transparent 70%);
   border-radius: 50%;
   animation: pulse-glow 3s ease-in-out infinite;
 }
 
 .cyber-lock-image {
-  width: 300px;
-  height: 300px;
+  width: 320px;
+  height: 320px;
   object-fit: contain;
-  filter: drop-shadow(0 0 20px rgba(0,212,255,0.5));
-  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 8px 30px rgba(var(--cyber-cyan),0.45));
+  animation: float 4.2s ease-in-out infinite;
 }
 
 @keyframes pulse-glow {
@@ -207,22 +210,22 @@
 
 /* Hero stats — mimic sizing and typography from the portfolio site */
 .hero-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 0.9rem;
+  align-items: start;
   z-index: 2; /* above background */
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 .stat-card {
   background: linear-gradient(180deg, rgba(var(--card),1), rgba(var(--card),0.98));
-  padding: 1rem 1.1rem;
-  border-radius: 12px;
-  box-shadow: var(--shadow-1);
-  border: 1px solid rgba(0,0,0,0.04);
-  max-width: 360px;
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  padding: 1.05rem 1.25rem;
+  border-radius: 14px;
+  box-shadow: var(--shadow-2);
+  border: 1px solid rgba(0,0,0,0.05);
+  max-width: 380px;
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms cubic-bezier(.2,.9,.2,1);
 }
 
 .stat-title {
@@ -239,8 +242,54 @@
 }
 
 .stat-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(6,182,212,0.08);
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 48px rgba(var(--cyber-cyan),0.10);
+}
+
+/* Layout on medium+ screens: show cards in columns */
+@media (min-width: 980px) {
+  .hero-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .stat-card {
+    max-width: none;
+  }
+}
+
+/* Responsive cyber-lock sizing and placement refinements */
+@media (min-width: 1200px) {
+  .hero-figure { right: 12%; }
+  .cyber-lock-container { width: 520px; height: 520px; }
+  .cyber-lock-image { width: 420px; height: 420px; }
+}
+
+@media (min-width: 1600px) {
+  .hero-figure { right: 10%; }
+  .cyber-lock-container { width: 620px; height: 620px; }
+  .cyber-lock-image { width: 520px; height: 520px; }
+}
+
+@media (max-width: 900px) {
+  .hero-figure { display: none; }
+  .hero-stats { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+}
+
+/* Hero headline and highlight polish */
+.hero-title {
+  font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.5px;
+  font-weight: 800;
+  color: rgb(var(--text));
+  margin: 0 0 0.5rem 0;
+}
+
+.hero-title .highlight {
+  color: rgb(var(--cyber-cyan-600));
+  display: inline-block;
+  padding: 0 0.1rem;
+  -webkit-text-stroke: 0.2px rgba(0,0,0,0.02);
 }
 
 /* Responsive adjustments: move hero-figure and stats below content on small screens */
