@@ -253,8 +253,9 @@
 }
 
 :focus-visible {
-  outline: 3px solid rgba(var(--cyber-cyan-600),0.18);
-  outline-offset: 3px;
+  /* stronger, higher-contrast focus ring for accessibility */
+  outline: 4px solid rgba(var(--cyber-cyan-600),0.22);
+  outline-offset: 4px;
 }
 
 .btn:focus-visible, .btn--primary:focus-visible, .btn-primary:focus-visible, .btn-secondary:focus-visible {
@@ -264,9 +265,11 @@
 
 /* Make stat-cards keyboard-focusable visually (add tabindex in templates for full a11y) */
 .stat-card:focus-visible {
-  outline: 3px solid rgba(var(--cyber-cyan-600),0.12);
+  /* Ensure a clear focus indicator on stat cards (keyboard users) */
+  outline: 4px solid rgba(var(--cyber-cyan-600),0.22);
+  outline-offset: 2px;
   box-shadow: 0 20px 48px rgba(var(--cyber-cyan),0.10);
-  transform: translateY(-8px) scale(1.01);
+  transform: translateY(-6px) scale(1.01);
 }
 
 /* Slightly reduce motion after hover to avoid excessive movement */

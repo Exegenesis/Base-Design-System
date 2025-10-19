@@ -1,6 +1,6 @@
 {
   "name": "@exegenesis/design-system",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shared base design tokens and lightweight CSS utilities for Exegenesis projects",
   "main": "css/base-theme.css",
   "files": [
@@ -16,7 +16,20 @@
     "type": "git",
     "url": "https://github.com/Exegenesis/Base-Design-System.git"
   },
-  "keywords": ["design-system", "css", "theme", "tokens"],
+  "keywords": [
+    "design-system",
+    "css",
+    "theme",
+    "tokens"
+  ],
   "license": "MIT",
-  "author": "Exegenesis"
+  "author": "Exegenesis",
+  "devDependencies": {
+    "puppeteer": "^24.25.0"
+  }
+  ,
+  "publishConfig": {
+    "access": "public"
+  }
 }
+
