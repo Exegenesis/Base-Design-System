@@ -1,0 +1,250 @@
+/* Base Design System - base-theme.css
+   Provides light and dark theme variables and minimal utilities.
+   - Use the CSS variables in your project for consistent theming.
+   - Toggle themes by adding `data-theme="dark"` on the documentElement or body.
+*/
+
+:root {
+  --scale-1: 12px;
+  --scale-2: 14px;
+  --scale-3: 16px;
+  --scale-4: 20px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  /* Light theme colors */
+  --bg: 255 255 255; /* RGB (for use with color: rgb(var(--bg))) */
+  --bg-1: 250 250 250;
+  --text: 20 20 20;
+  --muted: 97 97 97;
+  --card: 245 245 245;
+  --accent: 56 143 255;
+  --accent-600: 0 102 204;
+  --success: 46 204 113;
+  --danger: 231 76 60;
+  --glass: 255 255 255; /* subtle glass color */
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-2: 0 6px 18px rgba(14, 20, 30, 0.06);
+}
+
+[data-theme='dark'] {
+  --bg: 17 17 17;
+  --bg-1: 22 22 23;
+  --text: 230 230 230;
+  --muted: 160 160 160;
+  --card: 28 28 30;
+  --accent: 94 156 255;
+  --accent-600: 60 120 220;
+  --success: 72 219 132;
+  --danger: 255 94 87;
+  --glass: 36 36 38;
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow-2: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Utility helpers */
+:root,
+[data-theme] {
+  color-scheme: light dark;
+}
+
+.body-bg {
+  background: rgb(var(--bg));
+  color: rgb(var(--text));
+}
+
+.card {
+  background: rgb(var(--card));
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-2);
+  padding: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(var(--accent), 0.06), rgba(var(--accent-600), 0.04));
+  color: rgb(var(--accent-600));
+  border: 1px solid rgba(var(--accent-600), 0.08);
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: linear-gradient(180deg, rgb(var(--accent)), rgba(var(--accent-600), 0.9));
+  color: white;
+  border: none;
+}
+
+.p-1 {
+  padding: 0.25rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.m-1 {
+  margin: 0.25rem;
+}
+.m-2 {
+  margin: 0.5rem;
+}
+
+.kicker {
+  font-size: var(--scale-2);
+  color: rgb(var(--muted));
+}
+.h1 {
+  font-size: var(--scale-4);
+  font-weight: 700;
+}
+.small {
+  font-size: var(--scale-2);
+}
+
+/* Accessible focus ring */
+:focus {
+  outline: 3px solid rgba(var(--accent), 0.12);
+  outline-offset: 2px;
+}
+
+/* Theme toggle helper */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(var(--glass), 0.04);
+  border: 1px solid rgba(var(--glass), 0.06);
+}
+
+/* simple responsive container */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* small vars export for backward compatibility */
+:root {
+  --accent-color: rgb(var(--accent));
+  --card-bg: rgb(var(--card));
+}
+
+/* Hero background and decorative elements (shared across projects)
+   - world-map-overlay: subtle, desaturated map texture positioned behind hero
+   - cyber-lock-container: holds an SVG/png hero image (cyber-lock)
+   - hero-stats / stat-card: cards matching the darkness portfolio sizing and typography
+*/
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  /* subtle grid background similar to portfolio */
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(0,212,255,0.06)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>') center/cover;
+}
+
+.world-map-overlay {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 300px;
+  /* use a radial glow instead of a missing file */
+  background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.hero-figure {
+  position: absolute;
+  top: 50%;
+  right: 15%;
+  transform: translateY(-50%);
+  z-index: 2; /* sit behind hero-content which uses z-index:3 */
+}
+
+.cyber-lock-container {
+  width: 400px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.cyber-lock-image {
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(0,212,255,0.5));
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 30px rgba(0,212,255,0.3); }
+  50%     { box-shadow: 0 0 60px rgba(0,212,255,0.6); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-10px); }
+}
+
+/* Hero stats — mimic sizing and typography from the portfolio site */
+.hero-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  align-items: flex-start;
+  z-index: 2; /* above background */
+  margin-top: 0.5rem;
+}
+
+.stat-card {
+  background: linear-gradient(180deg, rgba(var(--card),1), rgba(var(--card),0.98));
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-1);
+  border: 1px solid rgba(0,0,0,0.04);
+  max-width: 360px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.stat-title {
+  font-size: 1.1875rem; /* ~19px */
+  font-weight: 800;
+  color: rgb(var(--accent));
+  margin-bottom: 0.25rem;
+}
+
+.stat-description {
+  font-size: 0.95rem; /* ~15px */
+  color: rgb(var(--muted));
+  line-height: 1.35;
+}
+
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(6,182,212,0.08);
+}
+
+/* Responsive adjustments: move hero-figure and stats below content on small screens */
+@media (max-width: 900px) {
+  .hero-figure { display: none; }
+  .hero-stats { margin-top: 1rem; }
+}
