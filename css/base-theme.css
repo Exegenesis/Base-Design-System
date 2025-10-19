@@ -1,0 +1,366 @@
+/* Base Design System - base-theme.css
+   Provides light and dark theme variables and minimal utilities.
+   - Use the CSS variables in your project for consistent theming.
+   - Toggle themes by adding `data-theme="dark"` on the documentElement or body.
+*/
+
+:root {
+  --scale-1: 12px;
+  --scale-2: 14px;
+  --scale-3: 16px;
+  --scale-4: 20px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  /* Light theme colors */
+  --bg: 255 255 255; /* RGB (for use with color: rgb(var(--bg))) */
+  --bg-1: 250 250 250;
+  --text: 20 20 20;
+  --muted: 97 97 97;
+  --card: 245 245 245;
+  --accent: 56 143 255;
+  --accent-600: 0 102 204;
+  /* Add cyan accent used in portfolio visuals */
+  --cyber-cyan: 6 182 212; /* rgb(6,182,212) */
+  --cyber-cyan-600: 8 145 178;
+  --success: 46 204 113;
+  --danger: 231 76 60;
+  --glass: 255 255 255; /* subtle glass color */
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-2: 0 6px 18px rgba(14, 20, 30, 0.06);
+}
+
+[data-theme='dark'] {
+  --bg: 17 17 17;
+  --bg-1: 22 22 23;
+  --text: 230 230 230;
+  --muted: 160 160 160;
+  --card: 28 28 30;
+  --accent: 94 156 255;
+  --accent-600: 60 120 220;
+  --success: 72 219 132;
+  --danger: 255 94 87;
+  --glass: 36 36 38;
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow-2: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Utility helpers */
+:root,
+[data-theme] {
+  color-scheme: light dark;
+}
+
+.body-bg {
+  background: rgb(var(--bg));
+  color: rgb(var(--text));
+}
+
+.card {
+  background: rgb(var(--card));
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-2);
+  padding: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(var(--accent), 0.06), rgba(var(--accent-600), 0.04));
+  color: rgb(var(--accent-600));
+  border: 1px solid rgba(var(--accent-600), 0.08);
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: linear-gradient(180deg, rgb(var(--accent)), rgba(var(--accent-600), 0.9));
+  color: white;
+  border: none;
+}
+
+.p-1 {
+  padding: 0.25rem;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.m-1 {
+  margin: 0.25rem;
+}
+.m-2 {
+  margin: 0.5rem;
+}
+
+.kicker {
+  font-size: var(--scale-2);
+  color: rgb(var(--muted));
+}
+.h1 {
+  font-size: var(--scale-4);
+  font-weight: 700;
+}
+.small {
+  font-size: var(--scale-2);
+}
+
+/* Accessible focus ring */
+:focus {
+  outline: 3px solid rgba(var(--accent), 0.12);
+  outline-offset: 2px;
+}
+
+/* Theme toggle helper */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(var(--glass), 0.04);
+  border: 1px solid rgba(var(--glass), 0.06);
+}
+
+/* simple responsive container */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* small vars export for backward compatibility */
+:root {
+  --accent-color: rgb(var(--accent));
+  --card-bg: rgb(var(--card));
+}
+
+/* Hero background and decorative elements (shared across projects)
+   - world-map-overlay: subtle, desaturated map texture positioned behind hero
+   - cyber-lock-container: holds an SVG/png hero image (cyber-lock)
+   - hero-stats / stat-card: cards matching the darkness portfolio sizing and typography
+*/
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+  /* subtle grid background similar to portfolio */
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(0,212,255,0.06)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>') center/cover;
+}
+
+.world-map-overlay {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 300px;
+  /* use a radial glow instead of a missing file */
+  background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.hero-figure {
+  position: absolute;
+  top: 50%;
+  right: 15%;
+  transform: translateY(-50%);
+  z-index: 2; /* sit behind hero-content which uses z-index:3 */
+}
+
+.cyber-lock-container {
+  width: 420px;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, rgba(var(--cyber-cyan),0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.cyber-lock-image {
+  width: 320px;
+  height: 320px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 30px rgba(var(--cyber-cyan),0.45));
+  animation: float 4.2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 30px rgba(0,212,255,0.3); }
+  50%     { box-shadow: 0 0 60px rgba(0,212,255,0.6); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-10px); }
+}
+
+/* Respect user motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .cyber-lock-container,
+  .cyber-lock-image,
+  .stat-card,
+  .btn,
+  .btn--primary,
+  .btn-primary,
+  .btn-secondary {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Micro-animations & transitions */
+.cyber-lock-container {
+  transition: transform 420ms cubic-bezier(.2,.9,.2,1), box-shadow 420ms ease;
+}
+.cyber-lock-image {
+  transition: transform 420ms cubic-bezier(.2,.9,.2,1), filter 420ms ease;
+}
+.cyber-lock-container:hover .cyber-lock-image,
+.cyber-lock-container:focus-within .cyber-lock-image {
+  transform: translateY(-6px) scale(1.01);
+  filter: drop-shadow(0 14px 42px rgba(var(--cyber-cyan),0.5));
+}
+
+.stat-card {
+  will-change: transform, box-shadow;
+}
+
+.btn, .btn--primary, .btn-primary, .btn-secondary {
+  transition: transform 180ms cubic-bezier(.2,.9,.2,1), box-shadow 180ms ease, background-color 180ms ease;
+}
+.btn:hover, .btn--primary:hover, .btn-primary:hover, .btn-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+
+/* Accessible focus states: use focus-visible to avoid accidental outlines on mouse click */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  /* stronger, higher-contrast focus ring for accessibility */
+  outline: 4px solid rgba(var(--cyber-cyan-600),0.22);
+  outline-offset: 4px;
+}
+
+.btn:focus-visible, .btn--primary:focus-visible, .btn-primary:focus-visible, .btn-secondary:focus-visible {
+  box-shadow: 0 8px 20px rgba(var(--cyber-cyan),0.12);
+  transform: translateY(-2px);
+}
+
+/* Make stat-cards keyboard-focusable visually (add tabindex in templates for full a11y) */
+.stat-card:focus-visible {
+  /* Ensure a clear focus indicator on stat cards (keyboard users) */
+  outline: 4px solid rgba(var(--cyber-cyan-600),0.22);
+  outline-offset: 2px;
+  box-shadow: 0 20px 48px rgba(var(--cyber-cyan),0.10);
+  transform: translateY(-6px) scale(1.01);
+}
+
+/* Slightly reduce motion after hover to avoid excessive movement */
+.stat-card:hover { transition-duration: 220ms; }
+
+/* Hero stats — mimic sizing and typography from the portfolio site */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 0.9rem;
+  align-items: start;
+  z-index: 2; /* above background */
+  margin-top: 0.75rem;
+}
+
+.stat-card {
+  background: linear-gradient(180deg, rgba(var(--card),1), rgba(var(--card),0.98));
+  padding: 1.05rem 1.25rem;
+  border-radius: 14px;
+  box-shadow: var(--shadow-2);
+  border: 1px solid rgba(0,0,0,0.05);
+  max-width: 380px;
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms cubic-bezier(.2,.9,.2,1);
+}
+
+.stat-title {
+  font-size: 1.1875rem; /* ~19px */
+  font-weight: 800;
+  color: rgb(var(--accent));
+  margin-bottom: 0.25rem;
+}
+
+.stat-description {
+  font-size: 0.95rem; /* ~15px */
+  color: rgb(var(--muted));
+  line-height: 1.35;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 20px 48px rgba(var(--cyber-cyan),0.10);
+}
+
+/* Layout on medium+ screens: show cards in columns */
+@media (min-width: 980px) {
+  .hero-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .stat-card {
+    max-width: none;
+  }
+}
+
+/* Responsive cyber-lock sizing and placement refinements */
+@media (min-width: 1200px) {
+  .hero-figure { right: 12%; }
+  .cyber-lock-container { width: 520px; height: 520px; }
+  .cyber-lock-image { width: 420px; height: 420px; }
+}
+
+@media (min-width: 1600px) {
+  .hero-figure { right: 10%; }
+  .cyber-lock-container { width: 620px; height: 620px; }
+  .cyber-lock-image { width: 520px; height: 520px; }
+}
+
+@media (max-width: 900px) {
+  .hero-figure { display: none; }
+  .hero-stats { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+}
+
+/* Hero headline and highlight polish */
+.hero-title {
+  font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.5px;
+  font-weight: 800;
+  color: rgb(var(--text));
+  margin: 0 0 0.5rem 0;
+}
+
+.hero-title .highlight {
+  color: rgb(var(--cyber-cyan-600));
+  display: inline-block;
+  padding: 0 0.1rem;
+  -webkit-text-stroke: 0.2px rgba(0,0,0,0.02);
+}
+
+/* Responsive adjustments: move hero-figure and stats below content on small screens */
+@media (max-width: 900px) {
+  .hero-figure { display: none; }
+  .hero-stats { margin-top: 1rem; }
+}
