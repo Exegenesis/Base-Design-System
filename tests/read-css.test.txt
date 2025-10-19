@@ -1,0 +1,5 @@
+# Manual test
+# Verify base-theme.css exists and contains :root and [data-theme] rules
+# This is a lightweight smoke test for human verification.
+
+- Open design-system/css/base-theme.css and ensure variables are present.
